@@ -3,10 +3,33 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <link rel="stylesheet" href="src/output.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+    />
+    <title>YesHub</title>
   </head>
-  <body>
-    <script src="main.js"></script>
-    <script src="favorite.js"></script>
+  <body
+    style="
+      background-image: url(&quot;assets/bg.jpeg&quot;);
+      background-size: cover;
+      background-position: center;
+    "
+  >
+    <div class="min-h-screen bg-black/70 backdrop-blur-sm">
+      <header></header>
+
+      <main class="pt-24 min-h-screen">
+        <!-- PAGE SPECIFIC CONTENT HERE -->
+      </main>
+
+      <footer></footer>
+    </div>
+    <script defer src="cards.js"></script>
+    <script defer src="api.js"></script>
+    <script defer src="main.js"></script>
+    <script defer src="favorite.js"></script>
+    <!-- change this for each page -->
   </body>
 </html>
