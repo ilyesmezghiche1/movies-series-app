@@ -8,6 +8,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
     <title>YesHub</title>
   </head>
   <body
@@ -21,15 +25,65 @@
       <header></header>
 
       <main class="pt-24 min-h-screen">
-        <!-- PAGE SPECIFIC CONTENT HERE -->
+        <!-- HERO SLIDER -->
+
+        <div class="px-8">
+          <div class="pt-4 pb-3">
+            <h2
+              class="text-white text-2xl font-black font-heading tracking-wide"
+            >
+              🔥 What's <span class="text-rose-400">Trending</span>
+            </h2>
+          </div>
+          <div class="swiper h-[80vh]">
+            <div class="swiper-wrapper" id="heroSlides"></div>
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+
+        <!-- SECTIONS BELOW -->
+        <section id="new-movies" class="px-8 py-10">
+          <h2 class="text-white text-xl font-black font-heading mb-6">
+            🎬 New <span class="text-rose-400">Movies</span>
+          </h2>
+          <div
+            class="cards-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5"
+          ></div>
+          <div class="text-center mt-8">
+            <button
+              class="show-more-btn bg-white/5 border border-white/15 text-white px-8 py-2 rounded-full text-sm font-semibold hover:bg-rose-500 hover:border-rose-500 transition-all duration-300"
+            >
+              Show More
+            </button>
+          </div>
+        </section>
+
+        <section id="new-series" class="px-8 py-10">
+          <h2 class="text-white text-xl font-black font-heading mb-6">
+            📺 New <span class="text-rose-400">Series</span>
+          </h2>
+          <div
+            class="cards-grid grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5"
+          ></div>
+          <div class="text-center mt-8">
+            <button
+              class="show-more-btn bg-white/5 border border-white/15 text-white px-8 py-2 rounded-full text-sm font-semibold hover:bg-rose-500 hover:border-rose-500 transition-all duration-300"
+            >
+              Show More
+            </button>
+          </div>
+        </section>
       </main>
 
       <footer></footer>
     </div>
+    <script
+      defer
+      src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
+    ></script>
     <script defer src="cards.js"></script>
     <script defer src="api.js"></script>
     <script defer src="main.js"></script>
     <script defer src="home.js"></script>
-    <!-- change this for each page -->
   </body>
 </html>
