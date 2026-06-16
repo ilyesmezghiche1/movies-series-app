@@ -63,15 +63,31 @@ document.querySelector("footer").outerHTML = footer;
 let dropBtn = document.querySelector("#dropBtn");
 let dropMenu = document.querySelector("#dropMenu");
 
-dropBtn.addEventListener("click", function(e) {
+dropBtn.addEventListener("click", function (e) {
   e.stopPropagation();
   dropMenu.classList.toggle("hidden");
 });
 
-window.addEventListener("click", function() {
+window.addEventListener("click", function () {
   dropMenu.classList.add("hidden");
 });
 
-window.addEventListener("scroll", function() {
+window.addEventListener("scroll", function () {
   dropMenu.classList.add("hidden");
 });
+
+function GetDetails() {
+  window.addEventListener("click", function (e) {
+    let card = e.target.closest("[data-id]");
+    if (!card) return;
+    let targetId = card.dataset.id;
+    let targetType = card.dataset.type;
+    if (targetType === "movie") {
+      getMovieMoreDetails(targetId);
+    } else {
+      getTvMoreDetails(targetId);
+    }
+  });
+}
+
+GetDetails();

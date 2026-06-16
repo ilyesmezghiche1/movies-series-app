@@ -5,6 +5,8 @@ async function loadHero() {
   movies.slice(0, 8).forEach(item => {
     let slide = document.createElement("div");
     slide.className = "swiper-slide";
+    slide.dataset.id = item.id;
+    slide.dataset.type = item.media_type;
     slide.innerHTML = `
       <div class="absolute inset-0" style="background-image: url('${IMG_URL}${item.backdrop_path}'); background-size: cover; background-position: center;"></div>
       <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent"></div>
@@ -23,6 +25,16 @@ async function loadHero() {
         </div>
       </div>
     `;
+
+    slide.addEventListener("click", () => {
+      window.location.href = `detail.html?id=${item.id}&type=${item.media_type}`;
+    });
+
+    slide.querySelector(".heart-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      console.log("toggle favorite", item.id, item.media_type);
+    });
+
     heroSlides.appendChild(slide);
   });
 

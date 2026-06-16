@@ -1,4 +1,6 @@
-class MediaCard {
+ class MediaCard {
+  static instances = [];
+
   constructor(id, title, poster, rating, year, type) {
     this.id = id;
     this.title = title;
@@ -6,6 +8,7 @@ class MediaCard {
     this.rating = rating;
     this.year = year;
     this.type = type;
+    MediaCard.instances.push(this);
   }
 
   render() {
@@ -16,11 +19,10 @@ class MediaCard {
 
     card.innerHTML = `
       <div class="relative aspect-[2/3] overflow-hidden">
-        <img src="${IMG_URL}${this.poster}" alt="${this.title}" loading="lazy" class="w-full h-full object-cover block"/>
+        <img src="${POSTER_IMG_URL}${this.poster}" alt="${this.title}" loading="lazy" class="w-full h-full object-cover block"/>
 
         <div class="card-overlay absolute inset-0 bg-black/85 flex flex-col justify-center items-center gap-4 p-4">
           <p class="text-white/75 text-xs text-center leading-relaxed line-clamp-4">${this.overview || ''}</p>
-          <button onclick="window.location.href='detail.html?id=${this.id}&type=${this.type}'" class="bg-rose-500 text-white px-5 py-2 rounded-full text-xs font-semibold hover:opacity-85 transition">▶ More Info</button>
         </div>
 
         <button class="card-heart-btn absolute top-2 right-2 bg-black/50 border border-white/20 text-white w-8 h-8 rounded-full text-sm flex items-center justify-center z-10" data-id="${this.id}" data-type="${this.type}">♡</button>
@@ -36,6 +38,15 @@ class MediaCard {
         <span class="text-white/45 text-xs">${this.year}</span>
       </div>
     `;
+
+    card.addEventListener("click", () => {
+      window.location.href = `detail.html?id=${this.id}&type=${this.type}`;
+    });
+
+    card.querySelector(".card-heart-btn").addEventListener("click", (e) => {
+      e.stopPropagation();
+      console.log("toggle favorite", this.id, this.type);
+    });
 
     return card;
   }
