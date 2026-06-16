@@ -1,10 +1,10 @@
 async function loadDetailPage() {
   let params = new URLSearchParams(window.location.search);
-  let id = params.get('id');
-  let type = params.get('type');
+  let id = params.get("id");
+  let type = params.get("type");
 
   let data;
-  if (type === 'movie') {
+  if (type === "movie") {
     data = await getMovieMoreDetails(id);
   } else {
     data = await getTvMoreDetails(id);
@@ -12,13 +12,14 @@ async function loadDetailPage() {
 
   if (!data) return;
 
-  let title = type === 'movie' ? data.title : data.name;
-  let date = type === 'movie' ? data.release_date : data.first_air_date;
-  let year = date?.split('-')[0];
-  let genres = data.genres?.map(g => g.name).join(', ');
-  let duration = type === 'movie'
-    ? `${data.runtime} min`
-    : `${data.number_of_seasons} Seasons`;
+  let title = type === "movie" ? data.title : data.name;
+  let date = type === "movie" ? data.release_date : data.first_air_date;
+  let year = date?.split("-")[0];
+  let genres = data.genres?.map((g) => g.name).join(", ");
+  let duration =
+    type === "movie"
+      ? `${data.runtime} min`
+      : `${data.number_of_seasons} Seasons`;
 
   renderHero(data, type, title, year, genres, duration);
   renderCast(data);
@@ -39,7 +40,7 @@ function renderHero(data, type, title, year, genres, duration) {
 
       <div class="flex flex-col gap-4 justify-end max-w-3xl">
         <div id="tags-container" class="flex gap-2">
-          <span class="${type === 'movie' ? 'bg-rose-500/85' : 'bg-violet-500/85'} text-white text-xs px-3 py-1 rounded-full font-bold">${type === 'movie' ? 'Movie' : 'Series'}</span>
+          <span class="${type === "movie" ? "bg-rose-500/85" : "bg-violet-500/85"} text-white text-xs px-3 py-1 rounded-full font-bold">${type === "movie" ? "Movie" : "Series"}</span>
           <span class="bg-yellow-400/85 text-black text-xs px-3 py-1 rounded-full font-bold">⭐ ${data.vote_average?.toFixed(1)}</span>
           <span class="bg-gray-600 text-white text-xs px-3 py-1 rounded-full font-bold">${duration}</span>
         </div>
@@ -64,17 +65,21 @@ function renderCast(data) {
   let cast = data.credits?.cast?.slice(0, 8) || [];
 
   if (cast.length === 0) {
-    section2.innerHTML = '';
+    section2.innerHTML = "";
     return;
   }
 
-  let castCards = cast.map(actor => `
+  let castCards = cast
+    .map(
+      (actor) => `
     <div class="flex flex-col items-center gap-2 w-24 flex-shrink-0">
-      <div style="background-image:url('${actor.profile_path ? PROFILE_IMG_URL + actor.profile_path : ''}'); background-size: cover; background-position: center;" class="w-20 h-20 rounded-full bg-white/10 border border-white/10"></div>
+      <div style="background-image:url('${actor.profile_path ? PROFILE_IMG_URL + actor.profile_path : ""}'); background-size: cover; background-position: center;" class="w-20 h-20 rounded-full bg-white/10 border border-white/10"></div>
       <span class="text-white text-xs font-bold text-center">${actor.name}</span>
       <span class="text-gray-400 text-[10px] text-center">${actor.character}</span>
     </div>
-  `).join('');
+  `,
+    )
+    .join("");
 
   section2.innerHTML = `
     <h2 class="text-white text-xl font-black font-heading px-8 mb-6">Top Cast</h2>
@@ -89,15 +94,16 @@ function renderSimilar(data, type) {
   let similar = data.similar?.results?.slice(0, 6) || [];
 
   if (similar.length === 0) {
-    section3.innerHTML = '';
+    section3.innerHTML = "";
     return;
   }
 
   let grid = document.createElement("div");
-  grid.className = "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 px-8";
+  grid.className =
+    "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 px-8";
 
-  similar.forEach(item => {
-    let card = type === 'movie' ? new MovieCard(item) : new SerieCard(item);
+  similar.forEach((item) => {
+    let card = type === "movie" ? new MovieCard(item) : new SerieCard(item);
     grid.appendChild(card.render());
   });
 

@@ -1,4 +1,4 @@
- class MediaCard {
+class MediaCard {
   static instances = [];
 
   constructor(id, title, poster, rating, year, type) {
@@ -15,20 +15,21 @@
     let card = document.createElement("div");
     card.dataset.id = this.id;
     card.dataset.type = this.type;
-    card.className = "group relative rounded-xl overflow-hidden bg-white/5 border border-white/10 cursor-pointer transition-transform duration-300 hover:-translate-y-2";
+    card.className =
+      "group relative rounded-xl overflow-hidden bg-white/5 border border-white/10 cursor-pointer transition-transform duration-300 hover:-translate-y-2";
 
     card.innerHTML = `
       <div class="relative aspect-[2/3] overflow-hidden">
         <img src="${POSTER_IMG_URL}${this.poster}" alt="${this.title}" loading="lazy" class="w-full h-full object-cover block"/>
 
         <div class="card-overlay absolute inset-0 bg-black/85 flex flex-col justify-center items-center gap-4 p-4">
-          <p class="text-white/75 text-xs text-center leading-relaxed line-clamp-4">${this.overview || ''}</p>
+          <p class="text-white/75 text-xs text-center leading-relaxed line-clamp-4">${this.overview || ""}</p>
         </div>
 
         <button class="card-heart-btn absolute top-2 right-2 bg-black/50 border border-white/20 text-white w-8 h-8 rounded-full text-sm flex items-center justify-center z-10" data-id="${this.id}" data-type="${this.type}">♡</button>
 
         <div class="absolute top-2 left-2 flex gap-1">
-          <span class="${this.type === 'movie' ? 'bg-rose-500/85' : 'bg-violet-500/85'} text-white text-[10px] px-2 py-0.5 rounded-full font-bold">${this.type === 'movie' ? 'Movie' : 'Series'}</span>
+          <span class="${this.type === "movie" ? "bg-rose-500/85" : "bg-violet-500/85"} text-white text-[10px] px-2 py-0.5 rounded-full font-bold">${this.type === "movie" ? "Movie" : "Series"}</span>
           <span class="bg-yellow-400/85 text-black text-[10px] px-2 py-0.5 rounded-full font-bold">⭐ ${this.rating?.toFixed(1)}</span>
         </div>
       </div>
@@ -59,8 +60,8 @@ class MovieCard extends MediaCard {
       item.title,
       item.poster_path,
       item.vote_average,
-      item.release_date?.split('-')[0],
-      'movie'
+      item.release_date?.split("-")[0],
+      "movie",
     );
     this.overview = item.overview;
   }
@@ -73,8 +74,8 @@ class SerieCard extends MediaCard {
       item.name,
       item.poster_path,
       item.vote_average,
-      item.first_air_date?.split('-')[0],
-      'tv'
+      item.first_air_date?.split("-")[0],
+      "tv",
     );
     this.overview = item.overview;
   }

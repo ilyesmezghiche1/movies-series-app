@@ -2,7 +2,7 @@ async function loadHero() {
   let movies = await getTrending();
   let heroSlides = document.querySelector("#heroSlides");
 
-  movies.slice(0, 8).forEach(item => {
+  movies.slice(0, 8).forEach((item) => {
     let slide = document.createElement("div");
     slide.className = "swiper-slide";
     slide.dataset.id = item.id;
@@ -14,7 +14,7 @@ async function loadHero() {
         <div class="hero-glass">
           <button class="heart-btn">♡</button>
           <div class="flex gap-3 mb-4">
-            <span class="hero-badge-type">${item.media_type === 'movie' ? '🎬 Movie' : '📺 Series'}</span>
+            <span class="hero-badge-type">${item.media_type === "movie" ? "🎬 Movie" : "📺 Series"}</span>
             <span class="hero-badge-rating">⭐ ${item.vote_average?.toFixed(1)}</span>
           </div>
           <h1 class="hero-title">${item.title || item.name}</h1>
@@ -38,11 +38,11 @@ async function loadHero() {
     heroSlides.appendChild(slide);
   });
 
-  new Swiper('.swiper', {
+  new Swiper(".swiper", {
     loop: true,
     autoplay: { delay: 5000, disableOnInteraction: false },
-    pagination: { el: '.swiper-pagination', clickable: true },
-    effect: 'fade',
+    pagination: { el: ".swiper-pagination", clickable: true },
+    effect: "fade",
     fadeEffect: { crossFade: true },
   });
 }
@@ -55,8 +55,8 @@ async function loadNewMovies() {
   let clicked = 0;
 
   function renderCards() {
-    grid.innerHTML = '';
-    movies.slice(0, shown).forEach(item => {
+    grid.innerHTML = "";
+    movies.slice(0, shown).forEach((item) => {
       grid.appendChild(new MovieCard(item).render());
     });
   }
@@ -82,8 +82,8 @@ async function loadNewSeries() {
   let clicked = 0;
 
   function renderCards() {
-    grid.innerHTML = '';
-    series.slice(0, shown).forEach(item => {
+    grid.innerHTML = "";
+    series.slice(0, shown).forEach((item) => {
       grid.appendChild(new SerieCard(item).render());
     });
   }
