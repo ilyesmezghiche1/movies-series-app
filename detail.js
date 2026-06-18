@@ -1,3 +1,4 @@
+let currentData;
 async function loadDetailPage() {
   let params = new URLSearchParams(window.location.search);
   let id = params.get("id");
@@ -6,8 +7,10 @@ async function loadDetailPage() {
   let data;
   if (type === "movie") {
     data = await getMovieMoreDetails(id);
+    console.log(data);
   } else {
     data = await getTvMoreDetails(id);
+    console.log(data);
   }
 
   if (!data) return;
@@ -18,9 +21,9 @@ async function loadDetailPage() {
   let genres = data.genres?.map((g) => g.name).join(", ");
   let duration =
     type === "movie"
-      ? `${data.runtime} min`
+      ? `${Math.floor(data.runtime / 60)}h,${data.runtime % 60}min`
       : `${data.number_of_seasons} Seasons`;
-
+  currentData = data;
   renderHero(data, type, title, year, genres, duration);
   renderCast(data);
   renderSimilar(data, type);
@@ -58,6 +61,12 @@ function renderHero(data, type, title, year, genres, duration) {
       </div>
     </div>
   `;
+  let btnTrailer = document.querySelector(".btn-trailer");
+  btnTrailer.addEventListener("click", whatchTrailer);
+let heart_btn = document.querySelector(".heart-btn");
+ heart_btn.addEventListener("click", (e) => {
+  toggleFavorite(e.currentTarget, data.id, type, title, data.poster_path, data.vote_average, year);
+});
 }
 
 function renderCast(data) {
@@ -112,3 +121,8 @@ function renderSimilar(data, type) {
 }
 
 loadDetailPage();
+
+function whatchTrailer() {
+ showTrailerPopup(currentData);
+}
+

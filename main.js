@@ -91,3 +91,51 @@ function GetDetails() {
 }
 
 GetDetails();
+
+function showTrailerPopup(data) {
+  let videos = data.videos.results;
+  let trailer = videos.filter(
+    (video) => video.type === "Trailer" && video.site === "YouTube"
+  )[0];
+
+  if (!trailer) {
+    Swal.fire({
+  title: "sory!",
+  text: "there is no trailer",
+  icon: "warning",
+  showConfirmButton: false,
+  theme:"dark",
+  showCloseButton: true
+});
+    return;
+  }
+
+  Swal.fire({
+    html: `<iframe width="99%" height="500" src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allowfullscreen></iframe>`,
+    width: 900,
+    showConfirmButton: false,
+    theme:"dark",
+    showCloseButton: true
+  });
+}
+
+function toggleFavorite(btn, id, type, title, poster, rating, year) {
+  btn.classList.toggle("active");
+  if (btn.classList.contains("active")) {
+    btn.textContent = "♥";
+   localStorage.setItem(id, JSON.stringify({
+  id,
+  type,
+  title,          // MovieCard uses item.title
+  name: title,    // SerieCard uses item.name
+  poster_path: poster,   // cards use item.poster_path
+  vote_average: rating,  // cards use item.vote_average
+  release_date: year ? `${year}-01-01` : null,     // MovieCard uses item.release_date
+  first_air_date: year ? `${year}-01-01` : null,   // SerieCard uses item.first_air_date
+  overview: ''
+}));
+  } else {
+    btn.textContent = "♡";
+    localStorage.removeItem(id);
+  }
+}

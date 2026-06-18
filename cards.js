@@ -45,10 +45,17 @@ class MediaCard {
     });
 
     card.querySelector(".card-heart-btn").addEventListener("click", (e) => {
-      e.stopPropagation();
-      console.log("toggle favorite", this.id, this.type);
-    });
-
+  e.stopPropagation();
+  toggleFavorite(
+    e.currentTarget,
+    this.id,
+    this.type,
+    this.title,
+    this.poster,
+    this.rating,
+    this.year
+  );
+});
     return card;
   }
 }

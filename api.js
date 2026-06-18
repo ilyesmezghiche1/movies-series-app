@@ -6,7 +6,10 @@ const PROFILE_IMG_URL = "https://image.tmdb.org/t/p/w185";
 
 async function getTrending() {
   try {
-    let result = await fetch(`${BASE_URL}/trending/all/week?api_key=${API_KEY}`);
+    let result = await fetch(
+      `${BASE_URL}/trending/all/week?api_key=${API_KEY}`,
+    );
+    console.log(result);
     if (!result.ok) throw new Error("Failed");
     let data = await result.json();
     return data.results;
@@ -18,7 +21,9 @@ async function getTrending() {
 
 async function getNowPlayingMovies() {
   try {
-    let result = await fetch(`${BASE_URL}/movie/now_playing?api_key=${API_KEY}`);
+    let result = await fetch(
+      `${BASE_URL}/movie/now_playing?api_key=${API_KEY}`,
+    );
     if (!result.ok) throw new Error("Failed");
     let data = await result.json();
     return data.results;
@@ -40,25 +45,29 @@ async function getOnAirSeries() {
   }
 }
 
-async function getMovieMoreDetails(id){
-  try{
-    let result = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}&append_to_response=videos,credits,similar`)
+async function getMovieMoreDetails(id) {
+  try {
+    let result = await fetch(
+      `${BASE_URL}/movie/${id}?api_key=${API_KEY}&append_to_response=videos,credits,similar`,
+    );
     if (!result.ok) throw new Error("Failed");
     let data = await result.json();
     return data;
-  }catch(error){
+  } catch (error) {
     console.error(error);
     return null;
   }
 }
 
-async function getTvMoreDetails(id){
-  try{
-    let result = await fetch(`${BASE_URL}/tv/${id}?api_key=${API_KEY}&append_to_response=videos,credits,similar`)
+async function getTvMoreDetails(id) {
+  try {
+    let result = await fetch(
+      `${BASE_URL}/tv/${id}?api_key=${API_KEY}&append_to_response=videos,credits,similar`,
+    );
     if (!result.ok) throw new Error("Failed");
     let data = await result.json();
     return data;
-  }catch(error){
+  } catch (error) {
     console.error(error);
     return null;
   }

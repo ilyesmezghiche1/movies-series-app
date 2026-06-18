@@ -129,3 +129,8 @@
   background: rgba(244, 63, 94, 0.5);
   color: #f43f5e;
 }
+.heart-btn.active {
+  color: #f43f5e;
+  border-color: #f43f5e;
+  background: rgba(244, 63, 94, 0.2);
+}

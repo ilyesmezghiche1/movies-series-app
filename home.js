@@ -25,14 +25,27 @@ async function loadHero() {
         </div>
       </div>
     `;
-
     slide.addEventListener("click", () => {
       window.location.href = `detail.html?id=${item.id}&type=${item.media_type}`;
     });
 
-    slide.querySelector(".heart-btn").addEventListener("click", (e) => {
+   slide.querySelector(".heart-btn").addEventListener("click", (e) => {
+  e.stopPropagation();
+  toggleFavorite(
+    e.currentTarget,
+    item.id,
+    item.media_type,
+    item.title || item.name,
+    item.poster_path,
+    item.vote_average,
+    item.release_date?.split('-')[0] || item.first_air_date?.split('-')[0]
+  );
+});
+
+    let trailerBtn = slide.querySelector(".btn-trailer");
+    trailerBtn.addEventListener("click", (e) => {
       e.stopPropagation();
-      console.log("toggle favorite", item.id, item.media_type);
+      whatchHeroTrailer(item.id, item.media_type);
     });
 
     heroSlides.appendChild(slide);
@@ -104,3 +117,12 @@ async function loadNewSeries() {
 loadHero();
 loadNewMovies();
 loadNewSeries();
+
+async function whatchHeroTrailer(id, type) {
+  let data =
+    type === "movie"
+      ? await getMovieMoreDetails(id)
+      : await getTvMoreDetails(id);
+  if (!data) return;
+  showTrailerPopup(data);
+}
