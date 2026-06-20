@@ -45,19 +45,42 @@ class MediaCard {
     });
 
     card.querySelector(".card-heart-btn").addEventListener("click", (e) => {
-  e.stopPropagation();
-  toggleFavorite(
-    e.currentTarget,
-    this.id,
-    this.type,
-    this.title,
-    this.poster,
-    this.rating,
-    this.year
-  );
-});
+      e.stopPropagation();
+      toggleFavorite(
+        e.currentTarget,
+        this.id,
+        this.type,
+        this.title,
+        this.poster,
+        this.rating,
+        this.year,
+      );
+    });
     return card;
   }
+ renderCompact() {
+  let row = document.createElement("div");
+  row.dataset.id = this.id;
+  row.dataset.type = this.type;
+  row.className = "flex gap-3 items-center px-2 py-2.5 border-b border-white/8 hover:bg-white/5 cursor-pointer transition last:border-b-0";
+
+  row.innerHTML = `
+    <div class="relative search-dropdown-thumb flex-shrink-0">
+      <img src="${POSTER_IMG_URL}${this.poster}" alt="${this.title}" loading="lazy" class="w-full h-full object-cover rounded"/>
+      <span class="absolute bottom-0.5 left-0.5 bg-yellow-400/90 text-yellow-950 text-[9px] font-semibold px-1 py-0.5 rounded-full">${this.rating?.toFixed(1)}</span>
+    </div>
+    <div class="flex flex-col gap-0.5 overflow-hidden">
+      <span class="text-white text-[13px] font-medium truncate">${this.title}</span>
+      <span class="text-white/40 text-[11px]">${this.type === "movie" ? "Movie" : "Series"} · ${this.year}</span>
+    </div>
+  `;
+
+  row.addEventListener("click", () => {
+    window.location.href = `detail.html?id=${this.id}&type=${this.type}`;
+  });
+
+  return row;
+}
 }
 
 class MovieCard extends MediaCard {

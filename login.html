@@ -21,7 +21,73 @@
       <header></header>
 
       <main class="pt-24 min-h-screen">
-        <!-- PAGE SPECIFIC CONTENT HERE -->
+        <main class="pt-24 min-h-screen flex items-center justify-center px-4">
+          <div
+            class="w-full max-w-[360px] bg-white/5 border border-white/10 rounded-2xl px-8 py-10"
+          >
+            <h1
+              class="text-rose-400 text-2xl font-black font-heading text-center mb-1"
+            >
+              YesHub
+            </h1>
+            <p class="text-white/40 text-[13px] text-center mb-7">
+              Welcome back, sign in to continue
+            </p>
+
+            <form id="login-form" class="flex flex-col gap-4">
+              <div class="flex flex-col gap-1.5">
+                <label for="email" class="text-white/60 text-xs">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="you@example.com"
+                  autocomplete="off"
+                  class="bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm placeholder-white/30 focus:outline-none focus:border-rose-400/50"
+                />
+              </div>
+
+              <div class="flex flex-col gap-1.5">
+                <label for="password" class="text-white/60 text-xs"
+                  >Password</label
+                >
+                <input
+                  type="password"
+                  id="password"
+                  placeholder="••••••••"
+                  autocomplete="off"
+                  class="bg-white/5 border border-white/10 rounded-lg px-3 py-2.5 text-white text-sm placeholder-white/30 focus:outline-none focus:border-rose-400/50"
+                />
+              </div>
+
+              <p
+                class="text-white/40 text-xs text-right -mt-1 cursor-pointer hover:text-rose-400 transition"
+              >
+                Forgot password?
+              </p>
+
+              <button
+                type="submit"
+                class="bg-rose-500 hover:bg-rose-600 text-white text-sm font-semibold py-2.5 rounded-full transition mt-1"
+              >
+                Sign in
+              </button>
+            </form>
+
+            <div class="flex items-center gap-3 my-5">
+              <div class="flex-1 h-px bg-white/10"></div>
+              <span class="text-white/35 text-[11px]">or</span>
+              <div class="flex-1 h-px bg-white/10"></div>
+            </div>
+
+            <p class="text-white/45 text-[13px] text-center">
+              Don't have an account?
+              <span
+                class="text-rose-400 font-semibold cursor-pointer hover:underline"
+                >Sign up</span
+              >
+            </p>
+          </div>
+        </main>
       </main>
 
       <footer></footer>

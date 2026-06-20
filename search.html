@@ -17,11 +17,23 @@
       background-position: center;
     "
   >
+    <header></header>
     <div class="min-h-screen bg-black/70 backdrop-blur-sm">
-      <header></header>
+
 
       <main class="pt-24 min-h-screen">
-        <!-- PAGE SPECIFIC CONTENT HERE -->
+        <section class="px-8 pt-4 pb-2">
+          <h2 class="text-white text-2xl font-black font-heading tracking-wide">
+            🔍 Search <span class="text-rose-400">Results</span>
+          </h2>
+        </section>
+
+        <section class="py-6">
+          <div
+            id="search-grid"
+            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-5 px-8"
+          ></div>
+        </section>
       </main>
 
       <footer></footer>
@@ -29,7 +41,6 @@
     <script defer src="cards.js"></script>
     <script defer src="api.js"></script>
     <script defer src="main.js"></script>
-    <script defer="serache.js"></script>
-
+    <script defer src="search.js"></script>
   </body>
 </html>

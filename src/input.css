@@ -134,3 +134,7 @@
   border-color: #f43f5e;
   background: rgba(244, 63, 94, 0.2);
 }
+.search-dropdown-thumb {
+  width: 2.5rem;
+  height: 3.5rem;
+}

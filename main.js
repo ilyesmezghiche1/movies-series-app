@@ -22,11 +22,13 @@ const header = `
       <li class="hover:text-white cursor-pointer transition"> <a href="favorite.html">Favorites</a></li>
     </ul>
     <div class="flex items-center gap-4">
-      <form class="flex items-center gap-2 bg-white/10 border border-white/10 rounded-full px-4 py-2 w-56">
-        <input type="text" placeholder="Search movies..." class="bg-transparent text-white text-sm outline-none placeholder-white/30 w-40 font-body"/>
-        <button type="submit" class="text-white/50 hover:text-white transition">
+      <form class="flex items-center gap-2 bg-white/10 border border-white/10 rounded-full px-4 py-2 w-56 relative">
+        <input type="text" id="input" placeholder="Search movies..." autocomplete="off" class="bg-transparent text-white text-sm outline-none placeholder-white/30 w-40 font-body "/>
+        <button type="submit" id="search-btn" class="text-white/50 hover:text-white transition">
           <i class="ti ti-search"></i>
         </button>
+        <div id = "dropsearch" class ="hidden absolute top-full left-0 mt-2 bg-slate-900/95 backdrop-blur-md border-white/10 rounded-lg p-2 w-80 ">
+        </div>
       </form>
       <a href="login.html" class="text-white text-sm font-medium px-5 py-2 rounded-full transition hover:opacity-90 bg-rose-400 font-body">Login</a>
     </div>
@@ -95,18 +97,18 @@ GetDetails();
 function showTrailerPopup(data) {
   let videos = data.videos.results;
   let trailer = videos.filter(
-    (video) => video.type === "Trailer" && video.site === "YouTube"
+    (video) => video.type === "Trailer" && video.site === "YouTube",
   )[0];
 
   if (!trailer) {
     Swal.fire({
-  title: "sory!",
-  text: "there is no trailer",
-  icon: "warning",
-  showConfirmButton: false,
-  theme:"dark",
-  showCloseButton: true
-});
+      title: "sory!",
+      text: "there is no trailer",
+      icon: "warning",
+      showConfirmButton: false,
+      theme: "dark",
+      showCloseButton: true,
+    });
     return;
   }
 
@@ -114,8 +116,8 @@ function showTrailerPopup(data) {
     html: `<iframe width="99%" height="500" src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allowfullscreen></iframe>`,
     width: 900,
     showConfirmButton: false,
-    theme:"dark",
-    showCloseButton: true
+    theme: "dark",
+    showCloseButton: true,
   });
 }
 
@@ -123,19 +125,56 @@ function toggleFavorite(btn, id, type, title, poster, rating, year) {
   btn.classList.toggle("active");
   if (btn.classList.contains("active")) {
     btn.textContent = "♥";
-   localStorage.setItem(id, JSON.stringify({
-  id,
-  type,
-  title,          // MovieCard uses item.title
-  name: title,    // SerieCard uses item.name
-  poster_path: poster,   // cards use item.poster_path
-  vote_average: rating,  // cards use item.vote_average
-  release_date: year ? `${year}-01-01` : null,     // MovieCard uses item.release_date
-  first_air_date: year ? `${year}-01-01` : null,   // SerieCard uses item.first_air_date
-  overview: ''
-}));
+    localStorage.setItem(
+      id,
+      JSON.stringify({
+        id,
+        type,
+        title, // MovieCard uses item.title
+        name: title, // SerieCard uses item.name
+        poster_path: poster, // cards use item.poster_path
+        vote_average: rating, // cards use item.vote_average
+        release_date: year ? `${year}-01-01` : null, // MovieCard uses item.release_date
+        first_air_date: year ? `${year}-01-01` : null, // SerieCard uses item.first_air_date
+        overview: "",
+      }),
+    );
   } else {
     btn.textContent = "♡";
     localStorage.removeItem(id);
   }
 }
+let input = document.querySelector("#input");
+let serchBtn = document.querySelector("#search-btn");
+let dropSearch = document.querySelector("#dropsearch");
+let timer;
+input.addEventListener("input", function () {
+  clearTimeout(timer);
+  timer = setTimeout(async () => {
+    let results = await getSearch(input.value);
+    renderDropdown(results);
+  }, 300);
+});
+
+function renderDropdown(results) {
+  let dropdown = document.querySelector("#dropsearch");
+  dropdown.innerHTML = '';
+
+  if (results.length === 0) {
+    dropdown.classList.add("hidden");
+    return;
+  }
+
+  results.slice(0, 5).forEach(item => {
+    let card = item.media_type === "movie" ? new MovieCard(item) : new SerieCard(item);
+    dropdown.appendChild(card.renderCompact());
+  });
+
+  dropdown.classList.remove("hidden");
+}
+
+serchBtn.addEventListener("click", function (e) {
+  e.preventDefault();
+  window.location.href = `search.html?query=${input.value}`;
+});
+

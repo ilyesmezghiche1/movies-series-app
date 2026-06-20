@@ -1,3 +1,5 @@
+
+
 const API_KEY = "a44a18c6935a5b20424a8d996ebcb3b1";
 const BASE_URL = "https://api.themoviedb.org/3";
 const IMG_URL = "https://image.tmdb.org/t/p/w1280";
@@ -70,5 +72,17 @@ async function getTvMoreDetails(id) {
   } catch (error) {
     console.error(error);
     return null;
+  }
+}
+
+async function getSearch(query){
+  try{
+    let result = await fetch(`${BASE_URL}/search/multi?api_key=${API_KEY}&query=${query}`);
+    if(!result.ok) throw new Error("Failed");
+    let data = await result.json();
+    return data.results.filter(item => item.media_type !== "person");
+  } catch (error) {
+    console.log(error);
+    return [];
   }
 }
