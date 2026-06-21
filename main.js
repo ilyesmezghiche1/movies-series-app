@@ -49,9 +49,9 @@ const footer = `
         <li class="hover:text-white/70 cursor-pointer transition">Privacy</li>
       </ul>
       <div class="flex gap-4 text-white/40 text-xl">
-        <a href="https://instagram.com" target="_blank" class="hover:text-white/70 transition"><i class="ti ti-brand-instagram"></i></a>
-        <a href="mailto:your@email.com" class="hover:text-white/70 transition"><i class="ti ti-mail"></i></a>
-        <a href="https://github.com/yourusername" target="_blank" class="hover:text-white/70 transition"><i class="ti ti-brand-github"></i></a>
+        <a href="https://www.instagram.com/ro_ssi_ilher/" target="_blank" class="hover:text-white/70 transition"><i class="ti ti-brand-instagram"></i></a>
+        <a href="mailto:ilyesmezghiche529@gmail.com" class="hover:text-white/70 transition"><i class="ti ti-mail"></i></a>
+        <a href="https://github.com/ilyesmezghiche1" target="_blank" class="hover:text-white/70 transition"><i class="ti ti-brand-github"></i></a>
       </div>
     </div>
   </footer>
@@ -158,15 +158,16 @@ input.addEventListener("input", function () {
 
 function renderDropdown(results) {
   let dropdown = document.querySelector("#dropsearch");
-  dropdown.innerHTML = '';
+  dropdown.innerHTML = "";
 
   if (results.length === 0) {
     dropdown.classList.add("hidden");
     return;
   }
 
-  results.slice(0, 5).forEach(item => {
-    let card = item.media_type === "movie" ? new MovieCard(item) : new SerieCard(item);
+  results.slice(0, 5).forEach((item) => {
+    let card =
+      item.media_type === "movie" ? new MovieCard(item) : new SerieCard(item);
     dropdown.appendChild(card.renderCompact());
   });
 
@@ -177,4 +178,3 @@ serchBtn.addEventListener("click", function (e) {
   e.preventDefault();
   window.location.href = `search.html?query=${input.value}`;
 });
-
